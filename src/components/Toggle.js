@@ -3,8 +3,9 @@ import { useSpring, animated } from 'react-spring';
 
 const Toggle = () => {
   const [isToggle, setToggle] = useState(false);
-  const { y, color } = useSpring({
-    y: isToggle ? 0 : -50,
+  const { y, color, opacity } = useSpring({
+    opacity: isToggle ? 1 : 0,
+    y: isToggle ? -50 : 0,
     color: isToggle ? 'tomato' : 'green',
   });
 
@@ -13,6 +14,7 @@ const Toggle = () => {
       <animated.h1
         style={{
           color,
+          opacity,
           transform: y.interpolate(y => `translate3d(0,${y}px,0)`),
         }}
       >

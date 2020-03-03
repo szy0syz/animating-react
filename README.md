@@ -130,3 +130,15 @@ const Toggle = () => {
   );
 };
 ```
+
+Ch-05 Nav
+
+> 菜单打开动效，记得`Nav` 组件内部用 `animated` 包一下。
+
+```js
+const navAnimation = useSpring({
+  transform: isNavOpen ? `translate3d(0,0,0) scale(1)` : `translate3d(100%,0,0) scale(0.6)`,
+});
+
+<Nav style={navAnimation} />
+```
