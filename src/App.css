@@ -70,7 +70,7 @@ body {
   font-size: 2rem;
   background: transparent;
   border: none;
-  z-index: 100;
+  z-index: 101;
 }
 
 h1 {
@@ -94,4 +94,30 @@ h1 {
   width: 70%;
   height: 100%;
   background: var(--purp);
+}
+
+.page-route {
+  height: 60vh;
+  background: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-route.two {
+  background: blueviolet;
+}
+.page-route.three {
+  background: teal;
+}
+
+.router-nav {
+  display: flex;
+  list-style: none;
+}
+.router-nav a {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 10px;
 }

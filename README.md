@@ -6,7 +6,7 @@
 - 这个对象使用在组件的 `style` 属实上，但必须 `animated.div`包裹起来才能识别
 
 ```js
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from 'react-spring';
 
 const fade = useSpring({
   from: {
@@ -38,9 +38,7 @@ console.dir(fade);
 //   __proto__: Animated
 //   __proto__: Object
 
-return (
-  <animated.div style={fade}></animated.div>
-)
+return <animated.div style={fade}></animated.div>;
 ```
 
 ## Ch-02
@@ -101,7 +99,7 @@ const fade = useSpring({
   }}
 >
   Hello
-</animated.h1>
+</animated.h1>;
 // ---- ❌❌ ----
 ```
 
@@ -140,7 +138,7 @@ const navAnimation = useSpring({
   transform: isNavOpen ? `translate3d(0,0,0) scale(1)` : `translate3d(100%,0,0) scale(0.6)`,
 });
 
-<Nav style={navAnimation} />
+<Nav style={navAnimation} />;
 ```
 
 ![03](./preview/spring003.gif)
@@ -193,15 +191,51 @@ const Checkout = ({ isOpen }) => {
   style={{
     color,
     opacity,
-    transform: y.interpolate({
-      range: [0, .25, .5, .75, 1],
-      output: [0, -25, -50, -100, -50]
-    }).interpolate(y => `translate3d(0,${y}px,0)`),
+    transform: y
+      .interpolate({
+        range: [0, 0.25, 0.5, 0.75, 1],
+        output: [0, -25, -50, -100, -50],
+      })
+      .interpolate(y => `translate3d(0,${y}px,0)`),
   }}
 >
   Hello
 </animated.h1>
-
 ```
 
 ![05](./preview/spring005.gif)
+
+## Ch-08 Transition with mounting
+
+![06](./preview/spring006.gif)
+
+```js
+const transtion = useTransition(isToggled, null, {
+  from: { opacity: 0 },
+  enter: { opacity: 1 },
+  leave: { opacity: 0 },
+});
+// 感觉真不好用
+return {transtion.map(({item, key, props}) => item && <animated.h1 key={key} style={props}>Hello</animated.h1>)}
+```
+
+## Ch-09 Transition with multiple
+
+> 感觉 transition 用于批量元素的动画
+
+![07](./preview/spring007.gif)
+
+```js
+{transtion.map(
+  ({ item, key, props }) =>
+    item && (
+      <animated.h1 key={key} style={props}>
+        {item.letter}
+      </animated.h1>
+    )
+)}
+```
+
+## Ch-10 Trasition with router
+
+![08](./preview/spring008.gif)

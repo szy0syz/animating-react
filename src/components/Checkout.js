@@ -10,6 +10,7 @@ const Checkout = ({ isOpen }) => {
     <div
       className="checkout"
       style={{
+        zIndex: 100,
         pointerEvents: isOpen ? 'all' : 'none',
       }}
     >

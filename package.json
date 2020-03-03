@@ -16,8 +16,9 @@
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
-    "react": ">= 16.8.0",
+    "react": ">=15",
     "react-dom": ">= 16.8.0",
+    "react-router-dom": "^5.1.2",
     "react-spring": "^8.0.27"
   }
 }
