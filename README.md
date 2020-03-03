@@ -178,3 +178,30 @@ const Checkout = ({ isOpen }) => {
 ```
 
 ![04](./preview/spring004.gif)
+
+## Ch-07 Emulating Keyframes
+
+> 模拟帧动画用 interpolate 的链式操作
+
+```js
+// ❎ y: isToggle ? -50 : 0,
+// -> ✅ y: isToggle ? 0 : 1,
+
+// 这里的 `interpolate` 是链式操作，对原先的值进行迭代
+
+<animated.h1
+  style={{
+    color,
+    opacity,
+    transform: y.interpolate({
+      range: [0, .25, .5, .75, 1],
+      output: [0, -25, -50, -100, -50]
+    }).interpolate(y => `translate3d(0,${y}px,0)`),
+  }}
+>
+  Hello
+</animated.h1>
+
+```
+
+![05](./preview/spring005.gif)
