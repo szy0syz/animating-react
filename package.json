@@ -1,0 +1,23 @@
+{
+  "name": "animating-react",
+  "version": "1.0.0",
+  "description": "react",
+  "main": "index.js",
+  "repository": "https://github.com/szy0syz/animating-react.git",
+  "author": "szy0syz <szy0syz@gmail.com>",
+  "scripts": {
+    "watch": "parcel src/index.html"
+  },
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0",
+    "react-spring": "^8.0.27"
+  }
+}
