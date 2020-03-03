@@ -131,7 +131,7 @@ const Toggle = () => {
 };
 ```
 
-Ch-05 Nav
+## Ch-05 Nav
 
 > 菜单打开动效，记得`Nav` 组件内部用 `animated` 包一下。
 
@@ -142,3 +142,39 @@ const navAnimation = useSpring({
 
 <Nav style={navAnimation} />
 ```
+
+![03](./preview/spring003.gif)
+
+## Ch-06 Checkout
+
+- 注意两处有 `tricks`
+  - 第一处：`Checkout` 是 `fixed`布局，在视窗最上方且有绝对权重，导致在它下面的`按钮`点击事件没有效果，则需要单独处理 `pointerEvents: isOpen ? 'all' : 'none';`
+  - 第二处：transform: x.interpolate(x => `translate3d(${-1 * x}%,0,0)`) 还是数值运动处理，使用 `interpolate`，和反向运动使用 `-1`
+
+```js
+const Checkout = ({ isOpen }) => {
+  const { x } = useSpring({
+    x: isOpen ? 0 : 100,
+  });
+
+  return (
+    <div
+      className="checkout"
+      style={{
+        pointerEvents: isOpen ? 'all' : 'none',
+      }}
+    >
+      <animated.div
+        style={{ transform: x.interpolate(x => `translate3d(${-1 * x}%,0,0)`) }}
+        className="checkout-left"
+      ></animated.div>
+      <animated.div
+        style={{ transform: x.interpolate(x => `translate3d(${x}%,0,0)`) }}
+        className="checkout-right"
+      ></animated.div>
+    </div>
+  );
+};
+```
+
+![04](./preview/spring004.gif)

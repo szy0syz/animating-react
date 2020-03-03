@@ -76,3 +76,22 @@ body {
 h1 {
   color: white;
 }
+
+.checkout {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+}
+.checkout-left {
+  width: 30%;
+  height: 100%;
+  background: white;
+}
+.checkout-right {
+  width: 70%;
+  height: 100%;
+  background: var(--purp);
+}

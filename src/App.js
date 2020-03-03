@@ -5,6 +5,7 @@ import './App.css';
 
 import Nav from './components/Nav';
 import Toggle from './components/Toggle';
+import Checkout from './components/Checkout';
 
 const App = () => {
   const [isNavOpen, setNavOpen] = useState(false);
@@ -27,10 +28,11 @@ const App = () => {
         <button className="menu-button" onClick={() => setNavOpen(!isNavOpen)}>
           Menu
         </button>
-        <Nav style={navAnimation} />
+        {/* <Nav style={navAnimation} /> */}
       </header>
       <main>
         <Toggle />
+        <Checkout isOpen={isNavOpen} />
       </main>
     </animated.div>
   );
