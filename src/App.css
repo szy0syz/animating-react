@@ -145,3 +145,10 @@ h1 {
 .modal-card h1 {
   color: black;
 }
+
+.accordion {
+  background: white;
+  padding: 20px;
+  border: solid 1px #eee;
+  overflow: hidden;
+}

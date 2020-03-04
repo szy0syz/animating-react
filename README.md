@@ -301,3 +301,76 @@ const ModalWrapper = () => {
   );
 };
 ```
+
+## Ch-12 Accordion
+
+- `useMeasure`
+
+```js
+const Accordion = () => {
+  const [on, toggle] = useState(false);
+  // const [bind, measure] = useMeasure();
+  // console.dir(bind)
+  // console.dir(measure);
+  const [bind, measure] = useMeasure();
+  const { height, top } = measure || {};
+  console.log(measure)
+  const animation = useSpring({
+    overflow: 'hidden',
+    // + wrapper的padding
+    height: on ? height + top * 2 : 0,
+  });
+
+
+  return (
+    <div>
+      <h1 onClick={() => toggle(!on)}>Toggle</h1>
+      <animated.div style={animation}>
+        <div {...bind} className="accordion">
+          <p>Hello, i'm in the accordion</p>
+        </div>
+      </animated.div>
+    </div>
+  );
+};
+
+/*
+bind: {
+  ref: {current: undefined}
+}
+
+measure: {
+  x: 23  // 盒子内容距离视窗边框的距离
+  y: 23  // 就是 padding 值
+  width: 1782
+  height: 62 // height = 上下padding和盒子内容高度
+  top: 23
+  right: 1805
+  bottom: 85
+  left: 23
+}
+*/
+```
+
+- 动态尺子：返回的bounds是个动态值，会根据视窗大小自动更新触发动画效果
+
+```js
+export default function useMeasure() {
+  const ref = useRef();
+  const [bounds, set] = useState({ left: 0, top: 0, width: 0, height: 0 });
+  const [ro] = useState(
+    () => new ResizeObserver(([entry]) => set(entry.contentRect))
+  );
+  useEffect(() => (ro.observe(ref.current), ro.disconnect), []);
+  return [{ ref }, bounds];
+}
+
+```
+
+![10](./preview/spring010.gif)
+
+## Ch-13 animation on scroll
+
+```js
+
+```

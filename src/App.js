@@ -5,6 +5,7 @@ import './App.css';
 // import Nav from './components/Nav';
 // import Toggle from './components/Toggle';
 import Modal from './components/Modal';
+import Accordion from './components/Accordion';
 import Checkout from './components/Checkout';
 
 const App = () => {
@@ -34,7 +35,9 @@ const App = () => {
         {/* <Toggle />*/}
         {/* <Routes /> */}
         <Modal />
+        <Accordion />
       </main>
+
       <Checkout isOpen={isNavOpen} />
     </animated.div>
   );
