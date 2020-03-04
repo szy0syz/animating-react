@@ -243,3 +243,61 @@ return {transtion.map(({item, key, props}) => item && <animated.h1 key={key} sty
 ## Ch-11 Trasition with modal
 
 ![09](./preview/spring009.gif)
+
+- 小技巧：`const pointerEvents = on ? 'all' : 'none';` 不要遮挡 Menu 的点击事件
+- 原来 `style` 的样式 `pointerEvents`，可以传递下去，真巧妙 `style={{ pointerEvents }}`
+- 设计大原来没有后来有的问题，统统用 `useTransition`，相当于 `mounting` 和 `unmounting`
+- modal-card 有个从上往下掉的效果 `translate3d(0, -50px, 0)`
+
+```css
+.modal {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+```
+
+```js
+const Modal = ({ closeModal, animation, pointerEvents }) => {
+  return (
+    <div className="modal" style={{ pointerEvents }}>
+      <animated.div className="modal-card" style={animation}>
+        <button onClick={closeModal}>Close</button>
+        <h1>Modal</h1>
+      </animated.div>
+    </div>
+  );
+};
+
+const ModalWrapper = () => {
+  const [on, toggle] = useState(false);
+  const transition = useTransition(on, null, {
+    from: { opacity: 0, transform: 'translate3d(0, -50px, 0)' },
+    enter: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+    leave: { opacity: 0, transform: 'translate3d(0, -50px, 0)' }
+  });
+
+  const pointerEvents = on ? 'all' : 'none';
+
+  return (
+    <div>
+      {transition.map(
+        ({ item, key, props: animation }) =>
+          item && (
+            <Modal
+              pointerEvents={pointerEvents}
+              animation={animation}
+              closeModal={() => toggle(false)}
+            />
+          )
+      )}
+      <button onClick={() => toggle(!on)}>Open</button>
+    </div>
+  );
+};
+```

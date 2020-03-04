@@ -15,10 +15,11 @@ const Modal = ({ closeModal, animation, pointerEvents }) => {
 const ModalWrapper = () => {
   const [on, toggle] = useState(false);
   const transition = useTransition(on, null, {
-    from: { opacity: 0, transform: 'translate3d(0, -40px, 0)' },
+    from: { opacity: 0, transform: 'translate3d(0, -50px, 0)' },
     enter: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
-    leave: { opacity: 0, transform: 'translate3d(0, -40px, 0)' }
+    leave: { opacity: 0, transform: 'translate3d(0, -50px, 0)' }
   });
+
   const pointerEvents = on ? 'all' : 'none';
 
   return (
@@ -39,41 +40,3 @@ const ModalWrapper = () => {
 };
 
 export default ModalWrapper;
-
-
-// import React, { useState } from 'react';
-// import { useTransition, animated } from 'react-spring';
-
-// const Modal = ({ colseModal, animation, pointerEvents }) => {
-//   return (
-//     <div className="modal" style={{ pointerEvents }}>
-//       <animated.div className="modal-card" style={animation}>
-//         <button onClick={colseModal}>Close</button>
-//         <h1>Modal</h1>
-//       </animated.div>
-//     </div>
-//   );
-// };
-
-// const ModalWrapper = () => {
-//   const [on, toggle] = useState(false);
-//   const transition = useTransition(on, null, {
-//     from: { opacity: 0, transform: 'translate3d(0,-50px,0)' },
-//     enter: { opacity: 1, transform: 'translate3d(0,0,0)' },
-//     leave: { opacity: 0, transform: 'translate3d(0,-50px,0)' },
-//   });
-
-//   const pointerEvents = on ? 'all' : 'none';
-
-//   return (
-//     <div>
-//       {transition.map(
-//         ({ item, key, props: animation }) =>
-//           item && <Modal key={key} pointerEvents={pointerEvents} animation={animation} colseModal={() => toggle(false)} />
-//       )}
-//       <button onClick={() => toggle(!on)}>Open</button>
-//     </div>
-//   );
-// };
-
-// export default ModalWrapper;
