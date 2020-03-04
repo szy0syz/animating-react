@@ -305,6 +305,7 @@ const ModalWrapper = () => {
 ## Ch-12 Accordion
 
 - `useMeasure`
+- 一定要套一个 `Wrapper`
 
 ```js
 const Accordion = () => {
@@ -429,7 +430,6 @@ const Waypoints = () => {
 ## Ch-14 set function & gesture
 
 ```js
-
 const Gesture = () => {
   const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }));
 
@@ -441,7 +441,7 @@ const Gesture = () => {
   });
   return (
     <animated.div
-      style={{
+      style={{ // 数组可以这样结构
         transform: xy.interpolate((x,y) => `translate3d(${x}px, ${y}px, 0)`),
       }}
       {...bind()}
@@ -452,3 +452,81 @@ const Gesture = () => {
 ```
 
 ![12](./preview/spring012.gif)
+
+## Ch-15 gesture events
+
+- 中心点对称运动
+
+```js
+const bind = useGesture(({ down, delta }) => {
+  // 按着鼠标没，按着就设偏移量
+  if (down) {
+    set({ x: delta[0] });
+  } else {
+    if (delta[0] > 400) {
+      set({ x: 500 });
+    } else if (delta[0] < -400) {
+      set({ x: -500 });
+    } else {
+      set({ x: 0 });
+    }
+  }
+});
+```
+
+## Ch-16 useSptings
+
+> 动画效果：大家百花齐放！
+
+```js
+const items = [0.5, 0.3, 0.2, 0.7, 1];
+
+const Boxes = () => {
+  const springs = useSprings(
+    items.length,
+    items.map(item => ({
+      from: {
+        opacity: 0,
+      },
+      to: {
+        opacity: item,
+      },
+    }))
+  );
+  return (
+    <div className="boxes-grid">
+      {springs.map((animation, idx) => (
+        <animated.div key={idx} className="box" style={animation} />
+      ))}
+    </div>
+  );
+};
+```
+
+## Ch-17 useTrail
+
+> 动画效果：击鼓传花，大家一个接着一个的放动画。
+
+![13](./preview/spring013.gif)
+
+```js
+const Boxes = () => {
+  const [on ,toggle] = useState(false);
+  const springs = useTrail(5, {
+    opacity: on ? 0: 1,
+    transform: on ? 'scale(.3)' : 'scale(1)'
+  });
+  return (
+    <div className="boxes-grid">
+      <button onClick={() => toggle(!on)}>toggle trail</button>
+      {springs.map((animation, idx) => (
+        <animated.div key={idx} className="box" style={animation} />
+      ))}
+    </div>
+  );
+};
+```
+
+## Ch-18 useChain
+
+> 有点难！

@@ -5,7 +5,8 @@ import './App.css';
 // import Nav from './components/Nav';
 // import Toggle from './components/Toggle';
 import Modal from './components/Modal';
-import Gesture from './components/Gesture';
+import Boxes from './components/Boxes';
+// import Gesture from './components/Gesture';
 // import Waypoint from './components/Waypoints';
 import Accordion from './components/Accordion';
 import Checkout from './components/Checkout';
@@ -39,7 +40,8 @@ const App = () => {
         {/* <Waypoint /> */}
         <Modal />
         <Accordion />
-        <Gesture />
+        {/* <Gesture /> */}
+        <Boxes />
       </main>
 
       <Checkout isOpen={isNavOpen} />

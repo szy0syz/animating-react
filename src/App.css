@@ -164,4 +164,11 @@ h1 {
   height: 100px;
   width: 100px;
   margin: 0 auto;
+  cursor: pointer;
+}
+
+.boxes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
 }
