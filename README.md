@@ -364,13 +364,91 @@ export default function useMeasure() {
   useEffect(() => (ro.observe(ref.current), ro.disconnect), []);
   return [{ ref }, bounds];
 }
-
 ```
 
 ![10](./preview/spring010.gif)
 
 ## Ch-13 animation on scroll
 
+### react-wayponit
+
+- onEnter 实现的触发：其包裹的容器完全展露后才触发！
+
+```js
+const Waypoints = () => {
+  const [on, toggle] = useState(false);
+  const animation = useSpring({
+    opacity: on ? 1 : 0,
+    // 当该容器完全展露头角时，由左向右滑动展示，初始位置50%
+    transform: on ? 'translate3d(0,0,0)' : 'translate3d(50%, 0, 0)',
+    config: config.molasses,
+  });
+
+  return (
+    <div className="waypoints">
+      <p>
+        Lorem ipsum dolor amet poutine pitchfork tattooed venmo, heirloom cliche chartreuse gentrify
+        mumblecore hammock single-origin coffee banh mi. Sartorial unicorn 90's edison bulb iPhone.
+        Leggings pickled brunch neutra tousled. Occupy fixie affogato pinterest vaporware aesthetic,
+        tbh subway tile hammock next level prism vape lomo taiyaki kale chips. Jianbing knausgaard
+        taxidermy squid artisan thundercats, gochujang subway tile air plant taiyaki master cleanse
+        cray.
+      </p>
+      <div>
+        <Waypoint
+          /* 尾部还差15%就进入 onEnter 事件 */
+          bottomOffset="15%"
+          onEnter={() => {
+            if (!on) toggle(true);
+          }}
+        />
+        <animated.p style={animation}>
+          Jianbing lomo lumbersexual put a bird on it fixie next level pitchfork gentrify, disrupt
+          echo park. Hot chicken subway tile drinking vinegar fixie. YOLO keytar gluten-free artisan
+          live-edge four loko cred man braid food truck leggings. Health goth semiotics kogi
+          heirloom authentic hell of. Pork belly helvetica cornhole gentrify microdosing austin
+          chillwave pitchfork paleo cred raclette venmo vegan fashion axe +1.
+        </animated.p>
+      </div>
+      <p>
+        Craft beer tousled ennui ugh, williamsburg stumptown flexitarian plaid activated charcoal.
+        Taxidermy letterpress glossier 8-bit, organic bitters coloring book. Selvage lo-fi
+        typewriter wolf ugh, lyft four loko chillwave bitters mustache tumblr copper mug subway
+        tile. Fanny pack aesthetic taiyaki vice sustainable mustache. Asymmetrical shabby chic DIY
+        authentic normcore man braid you probably haven't heard of them. Mustache humblebrag umami
+        beard williamsburg. Prism hexagon VHS, paleo tacos narwhal etsy fashion axe ennui schlitz
+        ethical echo park vinyl.
+      </p>
+    </div>
+  );
+};
+```
+
+![11](./preview/spring011.gif)
+
+## Ch-14 set function & gesture
+
 ```js
 
+const Gesture = () => {
+  const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }));
+
+  // 这里down表示鼠标按键是否按下ing
+  // 这里delta是个偏移量，表示光标下落点的坐标相对xy轴偏移了多少，是个[0,0] 的数组
+  const bind = useGesture(({ down, delta }) => {
+    // 按着鼠标没，按着就设偏移量
+    set({ xy: down ? delta : [0, 0] });
+  });
+  return (
+    <animated.div
+      style={{
+        transform: xy.interpolate((x,y) => `translate3d(${x}px, ${y}px, 0)`),
+      }}
+      {...bind()}
+      className="box"
+    />
+  );
+};
 ```
+
+![12](./preview/spring012.gif)

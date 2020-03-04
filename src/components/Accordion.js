@@ -7,9 +7,7 @@ const Accordion = () => {
   // const [bind, measure] = useMeasure();
   // console.dir(bind)
   // console.dir(measure);
-  const [bind, measure] = useMeasure();
-  const { height, top } = measure || {};
-  console.log(measure)
+  const [bind, { height, top }] = useMeasure();
   const animation = useSpring({
     overflow: 'hidden',
     // + wrapper的padding
